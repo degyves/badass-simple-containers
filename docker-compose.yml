@@ -41,13 +41,15 @@ services:
       - "3000:3000"
     environment:
       REACT_APP_API_URL: http://localhost:8000
+      CHOKIDAR_USEPOLLING: "true"  # Better file watching for containers
+      WATCHPACK_POLLING: "true"    # Webpack polling for better change detection
     depends_on:
       - app
     restart: unless-stopped
     volumes:
-      - ./frontend/src:/app/src  # Mount source for live reload
+      - ./frontend/src:/app/src    # Mount source for live reload
       - ./frontend/public:/app/public  # Mount public files
-      - /app/node_modules  # Exclude node_modules
+      - /app/node_modules          # Exclude nodwwe_modules
     stdin_open: true
     tty: true
 

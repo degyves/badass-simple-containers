@@ -123,6 +123,28 @@ podman-compose up --build
 podman-compose build --no-cache
 ```
 
+### Troubleshooting Live Reload
+
+If changes aren't appearing automatically:
+
+```bash
+# For frontend CSS/JS changes not appearing:
+podman-compose restart frontend
+
+# For backend Python changes not appearing:
+podman-compose restart app
+
+# Hard refresh in browser (CSS changes):
+Cmd+Shift+R (macOS) or Ctrl+Shift+R (Linux/Windows)
+
+# Check container logs:
+podman-compose logs frontend
+podman-compose logs app
+
+# Nuclear option - restart everything:
+podman-compose down && podman-compose up
+```
+
 ### Using Podman Directly (Alternative)
 
 1. **Create and start a podman machine:**

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 function App() {
@@ -9,12 +9,8 @@ function App() {
 
   const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
-  // Fetch all users on component mount
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
+  // Memoize fetchUsers to avoid dependency issues
+  const fetchUsers = useCallback(async () => {
     try {
       const response = await fetch(`${API_BASE}/users`);
       const data = await response.json();
@@ -22,7 +18,12 @@ function App() {
     } catch (error) {
       console.error('Error fetching users:', error);
     }
-  };
+  }, [API_BASE]);
+
+  // Fetch all users on component mount
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
