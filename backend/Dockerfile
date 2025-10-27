@@ -16,5 +16,5 @@ COPY . /app
 # Expose port
 EXPOSE 8000
 
-# Run the app
+# Default command for production
 CMD ["python", "app.py"]

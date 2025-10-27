@@ -2,6 +2,22 @@
 
 A FastAPI application that greets users and stores them in a PostgreSQL database, with a React frontend.
 
+## Project Structure
+```
+.
+├── backend/                 # FastAPI application
+│   ├── app.py              # Main application
+│   ├── requirements.txt    # Python dependencies
+│   └── Dockerfile          # Backend container
+├── frontend/               # React application
+│   ├── src/               # React source code
+│   ├── public/            # Static files
+│   ├── package.json       # Node dependencies
+│   └── Dockerfile         # Frontend container
+├── docker-compose.yml     # Multi-container setup
+└── README.md             # This file
+```
+
 ## Features
 - React frontend with name input and user table
 - Greets new users and adds them to the database
@@ -79,13 +95,15 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
      postgres:14.19-alpine3.21
    ```
 
-3. **Build and run the app:**
+3. **Build and run the backend:**
    ```bash
+   cd backend
    podman build -t my-python-app .
    podman run -d --name app \
      -e DB_HOST=host.containers.internal \
      -p 8000:8000 \
      my-python-app
+   cd ..
    ```
 
 4. **Build and run the frontend:**
@@ -96,6 +114,7 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
      -e REACT_APP_API_URL=http://localhost:8000 \
      -p 3000:3000 \
      my-react-app
+   cd ..
    ```
 
 ### Using Docker Compose (If you prefer Docker)

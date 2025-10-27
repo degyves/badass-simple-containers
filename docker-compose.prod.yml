@@ -31,9 +31,6 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
-    volumes:
-      - ./backend:/app  # Mount source code for live reload
-    command: ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
   frontend:
     build: ./frontend
@@ -44,12 +41,6 @@ services:
     depends_on:
       - app
     restart: unless-stopped
-    volumes:
-      - ./frontend/src:/app/src  # Mount source for live reload
-      - ./frontend/public:/app/public  # Mount public files
-      - /app/node_modules  # Exclude node_modules
-    stdin_open: true
-    tty: true
 
 volumes:
   postgres_data:
