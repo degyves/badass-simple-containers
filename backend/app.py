@@ -77,12 +77,12 @@ async def hello(name: str):
         
         if user:
             # User exists - welcome back
-            message = f"Welcome back, {name}!"
+            message = f"Welcome back, {name}! 🎉 You're awesome!"
         else:
             # New user - add to database
             cursor.execute("INSERT INTO users (username) VALUES (%s)", (name,))
             conn.commit()
-            message = f"Hello, {name}. You've been added to the list!"
+            message = f"Hello, {name}! 🚀 You've been added to the list!"
         
         cursor.close()
         conn.close()
