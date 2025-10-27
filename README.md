@@ -77,6 +77,52 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
    podman-compose down
    ```
 
+## Handling Source Code Changes
+
+### Development Mode (Recommended for coding)
+
+The main `docker-compose.yml` is configured for development with **live reload**:
+
+- **Backend changes**: Automatically detected (uvicorn --reload)
+- **Frontend changes**: Automatically detected (React dev server)
+- **No rebuild needed**: Just save your files!
+
+```bash
+# Start in development mode (default)
+podman-compose up
+
+# Edit files in backend/ or frontend/src/
+# Changes appear immediately!
+```
+
+### Production Mode
+
+For production or when you want to test the "final" build:
+
+```bash
+# Use production compose file
+podman-compose -f docker-compose.prod.yml up --build
+```
+
+### Manual Rebuild Strategies
+
+If you need to force a rebuild:
+
+```bash
+# Rebuild specific service
+podman-compose build app           # Rebuild backend only
+podman-compose build frontend      # Rebuild frontend only
+
+# Rebuild everything
+podman-compose build
+
+# Rebuild and restart
+podman-compose up --build
+
+# Force rebuild (ignore cache)
+podman-compose build --no-cache
+```
+
 ### Using Podman Directly (Alternative)
 
 1. **Create and start a podman machine:**
