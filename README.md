@@ -1,8 +1,9 @@
-	# Badass simple containers demo with PostgreSQL
+	# Badass simple containers demo with PostgreSQL and React
 
-A FastAPI application that greets users and stores them in a PostgreSQL database.
+A FastAPI application that greets users and stores them in a PostgreSQL database, with a React frontend.
 
 ## Features
+- React frontend with name input and user table
 - Greets new users and adds them to the database
 - Welcomes back existing users
 - Simple PostgreSQL integration with user tracking
@@ -13,8 +14,6 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
 ### Prerequisites
 - Podman installed
 - podman-compose installed (`pip install podman-compose`)
-
-### Using Podman Compose (Recommended)
 
 ### Using Podman Compose (Recommended)
 
@@ -38,7 +37,12 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
    podman-compose up --build
    ```
 
-4. **Test the application:**
+4. **Open the frontend:**
+   - Navigate to http://localhost:3000 in your browser
+   - Enter a name and click Submit
+   - See the greeting message and user table
+
+5. **Test the API directly (optional):**
    ```bash
    # First time user
    curl http://localhost:8000/hello/victor
@@ -52,12 +56,10 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
    curl http://localhost:8000/users
    ```
 
-5. **Stop the application:**
+6. **Stop the application:**
    ```bash
    podman-compose down
    ```
-
-### Using Podman Directly (Alternative)
 
 ### Using Podman Directly (Alternative)
 
@@ -84,6 +86,16 @@ A FastAPI application that greets users and stores them in a PostgreSQL database
      -e DB_HOST=host.containers.internal \
      -p 8000:8000 \
      my-python-app
+   ```
+
+4. **Build and run the frontend:**
+   ```bash
+   cd frontend
+   podman build -t my-react-app .
+   podman run -d --name frontend \
+     -e REACT_APP_API_URL=http://localhost:8000 \
+     -p 3000:3000 \
+     my-react-app
    ```
 
 ### Using Docker Compose (If you prefer Docker)
